@@ -1,4 +1,5 @@
-const apiUrl = "http://localhost:3000";
+const apiUrl = "http://13.127.249.108:3000";
+// const apiUrl = "http://localhost:3000";
 const signupForm = document.getElementById("signupForm");
 const errorDiv = document.getElementById("error");
 
@@ -30,10 +31,10 @@ signupForm.addEventListener("submit", async (e) => {
       
       const data = await response.json();
       const token = data.token;
-    //   const isPremium = data.isPremium;
+      const isPremium = data.isPremium;
 
-    //   localStorage.setItem("token",token)
-    //   localStorage.setItem("isPremium",isPremium)
+      localStorage.setItem("token",token)
+      localStorage.setItem("isPremium",isPremium)
 
       window.location.href = `${apiUrl}/api/redirecting/loginPage`;
     } else {
