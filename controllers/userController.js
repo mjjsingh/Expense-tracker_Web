@@ -2,7 +2,7 @@ require('dotenv').config();
 const User = require("../models/userModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const nodemailer = require('nodemailer');
 
 
 const processSignup = async (req, res) => {
@@ -73,3 +73,27 @@ const processlogin = async (req, res) => {
     res.status(500).json({ error: "Error occured while login" });
   }
 };
+
+async function sendSuccessEmail(to , subject , text){
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth:{
+      user:process.env.Email,
+      pass:process.env.Email_pass,
+    }
+  })
+  const mailOptions = {
+    from: process.env.Email,
+    to,
+    subject,
+    text,
+  }
+  try{
+    await transporter.sendMail(mailOptions);
+    console.log("Success email sent");
+  }catch(error){
+    console.log("Error sending success email:",error)
+  }
+}
+
+module.exports = { processSignup, processlogin };

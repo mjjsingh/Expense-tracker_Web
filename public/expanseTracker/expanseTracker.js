@@ -1,4 +1,5 @@
- const apiUrl1 = "http://localhost:3000";
+const apiUrl1 = "http://13.127.249.108:3000";
+// const apiUrl1 = "http://localhost:3000";
 
 const form = document.getElementById("expenseForm");
 const submitButton = document.getElementById("submitButton");
@@ -167,4 +168,24 @@ expanseList.addEventListener("click", async (e) => {
       console.error("error fetching expense details:", error.message);
     }
   }
+});
+
+async function deleteExpanse(expanseId) {
+  try {
+    const response =await fetch(`${apiUrl1}/expenses/${expanseId}`, {
+      method: "DELETE",
+      headers: headers,
+    });
+    if (response.ok) {
+      fetchExpenseList();
+    } else {
+      console.log("error occured while deleting expanse", res.statusText);
+    }
+  } catch (err) {
+    console.error("error occured while delting expanse", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetchExpenseList(currentPage);
 });
